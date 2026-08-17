@@ -1,0 +1,15 @@
+seed: 777777
+dataset: coco3d
+start_epoch: 0
+end_epoch: 180
+save_epoch: 5
+batch_size: 1
+shuffle: True
+num_workers: 8
+lr_net_init: 0.0001
+lr_aux_init: 0.001
+lr_milestones: [30, 60]
+lr_decay: 0.1
+checkpoint_save_dir: checkpoints
+use_wandb: False
+wandb_project: SPCAC

@@ -1,0 +1,66 @@
+# Checkpoints & experiment logs
+/checkpoints/
+/ckpts/
+/wandb/
+
+# Raw PLY / HDF5 (Python package is dataset/, not this folder)
+/datasets/
+
+# Evaluation outputs: ignore by default, keep per-dataset RD JSON / plots
+/result/**
+!/result/*/
+!/result/*/metrics.json
+!/result/*/psnr_yuv.png
+
+# Reconstruction dumps, scratch dirs, local MPEG bitstream temps
+/reconstructed/
+/vis/
+/res/
+vis_result.py
+tem_*
+*.npz
+
+# Local MPEG G-PCC binaries (not bundled)
+/utils/bin/
+/utils/resources/
+
+# Machine-local helpers
+/script/scp.sh
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+htmlcov/
+.tox/
+.nox/
+*.log
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# uv.lock and .python-version are tracked
+# Local patched third-party sources (see script/setup_env.sh)
+.local/
+
+# IDE / OS
+.idea/
+.vscode/
+.ipynb_checkpoints
+.mypy_cache/
+.DS_Store
+Thumbs.db

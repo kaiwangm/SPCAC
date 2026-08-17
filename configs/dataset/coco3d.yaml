@@ -1,0 +1,13 @@
+dataset: coco3d
+category: dense
+root_path: ./datasets/coco3d
+depth: 10
+attributes: RGB
+url: https://cocodataset.org/#home
+overview: |
+  In-house synthetic training set (not used for testing).
+
+  Geometry is generated as 3D point clouds; color attributes are synthesized by
+  randomly pasting 2D images from the COCO dataset onto those clouds. The result
+  is a dense RGB point cloud used only to train attribute codecs, not as a
+  public capture benchmark like 8iVFBv2 or Owlii.

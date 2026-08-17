@@ -1,0 +1,12 @@
+dataset: owlii
+category: dense
+root_path: ./datasets/owlii/basketball_player11
+depth: 11
+attributes: RGB
+url: https://mpeg-pcc.org/index.php/pcc-content-database/owlii-dynamic-human-textured-mesh-sequence-dataset/
+overview: |
+  Provided by Owlii Inc. (Yi Xu, Yao Lu, Ziyu Wen).
+  
+  A mesh sequence is a set of mesh files with each mesh file containing a .obj file representing geometry, a .mtl file representing material and a .png file representing texture. In each .obj file, it contains position information for each vertex and connectivity information for each triangle and UV coordinate information to map the vertex to the texture map.
+  
+  There are four sequences in the dataset, known as basketball_player, dancer, exercise, and model, pictured below. In each sequence, the frameratre is at 30 fps, over a 20s period. For each sequence, it contains around 40K triangles. Texture maps are with the resolution of 2048×2048

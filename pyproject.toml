@@ -1,0 +1,86 @@
+[project]
+name = "spcac"
+version = "0.1.0"
+description = "Sparse Tensor-based Point Cloud Attribute Compression"
+requires-python = ">=3.10,<3.11"
+dependencies = [
+    # ---- PyTorch ecosystem (installed from PyTorch cu130 index) ----
+    "torch>=2.7.0",
+    "torchvision",
+    "torchaudio",
+    # ---- Scientific computing (numpy 1.x, compatible with MinkowskiEngine's numpy.distutils) ----
+    "numpy<2",
+    "scipy",
+    "scikit-learn",
+    "pandas",
+    "matplotlib",
+    # ---- Point cloud processing ----
+    "open3d",
+    "trimesh",
+    "plyfile",
+    # ---- Compression & metrics ----
+    "compressai",
+    "bd-metric",
+    # ---- Hugging Face Hub (model & dataset hosting) ----
+    "huggingface-hub",
+    # ---- Utilities ----
+    "wandb",
+    "rich",
+    "tqdm",
+    "pyyaml",
+    "h5py",
+    "bson",
+    "openpyxl",
+    "pillow",
+    "kornia",
+    "mitsuba",
+    # ---- Build tools (required for building MinkowskiEngine / pytorch3d) ----
+    "ninja",
+    "pybind11",
+    # ---- Source-built packages (resolved via [tool.uv.sources] to Git repos) ----
+    "minkowskiengine",
+    "pytorch3d",
+    "hf-xet>=1.6.0",
+]
+
+[project.optional-dependencies]
+demo = [
+    "gradio>=5.0",
+    "plotly>=5.24",
+    "pandas",
+]
+
+# ====================================================================
+# uv configuration
+# ====================================================================
+
+[tool.uv]
+
+# MinkowskiEngine's fork setup.py directly invokes pip uninstall and numpy.distutils,
+# requiring these dependencies to be injected into the build isolation environment
+# (pip enables pip uninstall, setuptools<80 enables numpy.distutils)
+[tool.uv.extra-build-dependencies]
+minkowskiengine = ["setuptools<80", "wheel", "numpy<2", "torch", "ninja", "pybind11", "pip"]
+# pytorch3d's setup.py imports torch at build time but doesn't declare it as
+# a build-system requires, so we inject it manually
+pytorch3d = ["setuptools<80", "wheel", "torch", "ninja", "pybind11", "cffi"]
+
+# ---- PyTorch CUDA 13.0 dedicated index (explicit = only for specified packages) ----
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+# ---- Dependency source mappings ----
+[tool.uv.sources]
+# PyTorch — installed from the dedicated CUDA 13.0 index
+torch = [{ index = "pytorch-cu130" }]
+torchvision = [{ index = "pytorch-cu130" }]
+torchaudio = [{ index = "pytorch-cu130" }]
+
+# MinkowskiEngine — built from source on the CUDA 13 fork (build isolation + extra-build-dependencies, no patches needed)
+minkowskiengine = { git = "https://github.com/AzharSindhi/MinkowskiEngineCuda13", branch = "cuda13-installation" }
+
+# pytorch3d — built from the local clone (pulsar module excluded)
+# pulsar renderer fails to link under CUDA 13.0; the project only needs pytorch3d.ops (knn)
+pytorch3d = { path = ".local/pytorch3d" }

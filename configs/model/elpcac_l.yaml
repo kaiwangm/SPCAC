@@ -1,0 +1,26 @@
+model: elpcac_l
+category: dense
+channels: 3
+levels:
+  q0:
+    paraments: [64, 16, 64]
+    lambda: 0.0006
+  q1:
+    paraments: [128, 32, 128]
+    lambda: 0.0018
+  q2:
+    paraments: [128, 48, 128]
+    lambda: 0.0063
+  q3:
+    paraments: [128, 64, 128]
+    lambda: 0.0130
+  q4:
+    paraments: [192, 64, 192]
+    lambda: 0.0530
+  q5:
+    paraments: [192, 64, 192]
+    lambda: 0.1800
+  q6:
+    paraments: [192, 80, 192]
+    lambda: 0.5800
+num_layers: 1
